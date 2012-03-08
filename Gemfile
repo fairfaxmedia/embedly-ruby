@@ -1,8 +1,6 @@
 source :rubygems
 
-gem "querystring"
-gem "oauth"
-gem "typhoeus"
+gemspec
 
 group :development do
   gem "jeweler"
