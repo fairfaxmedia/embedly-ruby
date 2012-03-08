@@ -56,6 +56,7 @@ class Embedly::API
     @api_version.merge!({:objectify => '2'})
     @hostname = opts[:hostname] || 'api.embed.ly'
     @timeout = opts[:timeout] || 180
+    @proxy = opts[:proxy]
     @headers = {
       'User-Agent' => opts[:user_agent] || "Mozilla/5.0 (compatible; embedly-ruby/#{Embedly::VERSION};)"
     }.merge(opts[:headers]||{})
@@ -65,7 +66,7 @@ class Embedly::API
     scheme, host, port = uri_parse hostname
     url = "#{scheme}://#{hostname}:#{port}#{path}"
     logger.debug { "calling #{site}#{path} with headers #{headers} using Typhoeus" }
-    Typhoeus::Request.get(url, {:headers => headers, :timeout => (@timeout*1000) })
+    Typhoeus::Request.get(url, {:headers => headers, :timeout => (@timeout*1000), :proxy => @proxy })
   end
 
   def _do_basic_call path
